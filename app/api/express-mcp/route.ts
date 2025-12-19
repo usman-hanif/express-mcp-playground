@@ -45,7 +45,9 @@ export async function POST(request: NextRequest) {
       async start(controller) {
         try {
           // Build request with MCP support
-          const requestOptions: Anthropic.MessageCreateParamsNonStreaming = {
+          const requestOptions: Anthropic.MessageCreateParamsNonStreaming & {
+            mcp_servers?: Array<{ type: string; url: string; name: string }>
+          } = {
             model: 'claude-sonnet-4-20250514',
             max_tokens: 4096,
             system: `You are a helpful AI assistant with access to tools via MCP (Model Context Protocol). Use the available tools to help users accomplish their tasks. Be concise, helpful, and use tools when appropriate to provide accurate, real-time information.`,
